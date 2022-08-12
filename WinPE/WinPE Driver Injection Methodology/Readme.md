@@ -93,6 +93,6 @@ Since both drivers are working for this model I will then want to get these adde
 
 I've started adding a category to the drivers of "Required" so that when I go to import WinPE Drivers I can just search for them. I may also add the Model that originally required it to be added, and even possibly a date field... 
 
-![Required WinPE Drivers](".\REQUIRED.jpg")
+![Required WinPE Drivers](REQUIRED.jpg?raw=true "Optional Title")
 
 
