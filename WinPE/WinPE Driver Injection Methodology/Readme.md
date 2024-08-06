@@ -88,6 +88,24 @@ DISKPART> list disk
  Disk 0    Online         7377 MB      0 B        *
  Disk 1    Online          476 GB      0 B        * 
 ```
+## Driver requires restart
+I had a RAID driver that required a reboot to be usable. This means my normal testing method isn't going to work.
+To get around this I grabbed the defualt winepe.wim that the ADK uses and then injected the RAID driver into it for quick test.
+
+1. Stage the winpe.wim from the ADK, default location is: "C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\en-us\winpe.wim"
+2. Mount the wim to a temporary mount folder
+```
+Dism /Mount-Image /ImageFile:C:\WIM\winpe.wim /Index:1 /MountDir:C:\Mount
+```
+3. Stage the driver you need and then injected to the mounted wim
+```
+DISM /Image:C:\Mount /Add-Driver /Driver:C:\Driver /recurse
+```
+4. Commit the changes to the WIM
+```
+DISM /Unmount-Wim /MountDir:C:\MOUNT /Commit
+```
+5. After this, use a tool like rufus to make a bootable USB and see if diskpart/ipconfig now shows your device correctly.
 
 Since both drivers are working for this model I will then want to get these added to WinPE.
 
